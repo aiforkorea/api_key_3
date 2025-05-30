@@ -1,4 +1,3 @@
-# app/config.py
 import os
 
 if os.environ.get('RENDER', None) != 'true':

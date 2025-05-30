@@ -6,5 +6,5 @@ import pickle
 iris = load_iris()
 model = LogisticRegression(max_iter=200)
 model.fit(iris.data, iris.target)
-with open('app/model.pkl', 'wb') as f:
+with open('apps/iris/model.pkl', 'wb') as f:
     pickle.dump(model, f)
