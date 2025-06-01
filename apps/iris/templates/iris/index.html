@@ -1,22 +1,48 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Iris 예측 (API KEY 입력)</title></head>
-<body><h4 class="main">Iris 품종 예측</h4>
-    {% if error %}        <div style="color: red;">{{ error }}</div>    {% endif %}
-    <form method="post" action="{{ url_for('iris.iris_predict') }}">        
-        <label class="main_italic">API KEY: 
-            <input name="api_key" type="password" required value="{{ api_key|default('') }}">
-        </label><br>
-        <label>Sepal Length: <input name="sepal_length" type="number" step="any" required value="{{ sepal_length|default('') }}"></label><br>
-        <label>Sepal Width: <input name="sepal_width" type="number" step="any" required value="{{ sepal_width|default('') }}"></label><br>
-        <label>Petal Length: <input name="petal_length" type="number" step="any" required value="{{ petal_length|default('') }}"></label><br>
-        <label>Petal Width: <input name="petal_width" type="number" step="any" required value="{{ petal_width|default('') }}"></label><br>
-        <button type="submit">예측</button></form>
-    {% if result %}
-        <h2>예측 결과: {{ result }}</h2>
-        <ul>  <li>Sepal Length: {{ sepal_length }}</li>  <li>Sepal Width: {{ sepal_width }}</li>
-            <li>Petal Length: {{ petal_length }}</li>  <li>Petal Width: {{ petal_width }}</li></ul>
-    {% endif %}
-</body></html>
+    <title>Iris 예측 (API KEY 입력)</title>
+</head>
+<body>
+<h4 class="main">Iris 품종 예측</h4>
+{% if user_id %}
+  <p>로그인된 사용자: {{ user_id }}</p>
+{% endif %}
 
+{% if error %}
+    <div style="color: red;">{{ error }}</div>
+{% endif %}
 
+<form method="post" action="{{ url_for('iris.iris_predict') }}">
+    {{ form.hidden_tag() }}
+    <label class="main_italic">
+        {{ form.api_key.label }}: {{ form.api_key(size=20) }}
+    </label><br>
+    <label>
+        {{ form.sepal_length.label }}: {{ form.sepal_length(step="any") }}
+    </label><br>
+    <label>
+        {{ form.sepal_width.label }}: {{ form.sepal_width(step="any") }}
+    </label><br>
+    <label>
+        {{ form.petal_length.label }}: {{ form.petal_length(step="any") }}
+    </label><br>
+    <label>
+        {{ form.petal_width.label }}: {{ form.petal_width(step="any") }}
+    </label><br>
+    {{ form.submit() }}
+</form>
+
+{% if result %}
+    <h2>예측 결과: {{ result }}</h2>
+    <ul>
+        <li>Sepal Length: {{ form.sepal_length.data }}</li>
+        <li>Sepal Width: {{ form.sepal_width.data }}</li>
+        <li>Petal Length: {{ form.petal_length.data }}</li>
+        <li>Petal Width: {{ form.petal_width.data }}</li>
+    </ul>
+{% endif %}
+</body>
+</html>

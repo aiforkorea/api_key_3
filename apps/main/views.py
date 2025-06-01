@@ -1,6 +1,7 @@
 from flask import render_template
 from flask_login import login_required, current_user
-from apps.main import main
+from . import main
+# from apps.main import main
 
 @main.route("/")
 def index():

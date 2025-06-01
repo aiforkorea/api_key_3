@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.username(placeholder="Username") }}<br>
+        {{ form.password(placeholder="Password") }}<br>
+        <button type="submit">Login</button>
+    </form>
+    <a href="{{ url_for('auth.register') }}">Register</a>
+</body>
+</html>
